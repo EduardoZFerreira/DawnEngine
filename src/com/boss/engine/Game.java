@@ -1,6 +1,7 @@
 package com.boss.engine;
 
 import com.boss.enums.engine.GameStatus;
+import com.boss.graphics.Spritesheet;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 
@@ -23,6 +24,8 @@ public class Game extends Canvas implements Runnable {
     public static final int WIDTH = 240;
     public static final int HEIGHT = 160;
     public static final int SCALE = 3;
+
+    public Spritesheet spritesheet;
 
     public static void main(String[] args) {
         Game game = Game.getInstance();
@@ -76,9 +79,17 @@ public class Game extends Canvas implements Runnable {
         return status == GameStatus.RUNNING;
     }
 
+    private void load() {
+        spritesheet = new Spritesheet("/spritesheets/spritesheet.png");
+    }
+
     private Game() {
         requestFocus();
         initFrame();
+        load();
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Controls controls = new Controls();
+        addKeyListener(controls);
+        addMouseListener(controls);
     }
 }
