@@ -1,7 +1,9 @@
 package com.boss.engine;
 
+import com.boss.entities.Player;
 import com.boss.enums.engine.GameStatus;
 import com.boss.graphics.Spritesheet;
+import com.boss.world.World;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 
@@ -17,44 +19,51 @@ public class Game extends Canvas implements Runnable {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     protected final Loop loop = new Loop();
-    protected GameStatus status = GameStatus.STOPPED;
+    public GameStatus status = GameStatus.STOPPED;
 
     public static JFrame frame;
 
-    public static final int WIDTH = 1080;
-    public static final int HEIGHT = 720;
-    public static final int SCALE = 3;
+    public static final int WIDTH = 1920;
+    public static final int HEIGHT = 1080;
+    public static final int SCALE = 1;
 
     public Spritesheet spritesheet;
+    public Player player;
+    public World world;
 
     public static void main(String[] args) {
         Game game = Game.getInstance();
         game.run();
     }
 
-    public static Game getInstance()
+    public static synchronized Game getInstance()
     {
         if (single_instance == null)
             single_instance = new Game();
-
         return single_instance;
     }
 
     public void run() {
+        requestFocus();
+        initFrame();
+        load();
+        Controls controls = new Controls();
+        addKeyListener(controls);
+        addMouseListener(controls);
         loop.run();
     }
 
     public void initFrame() {
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        frame = new JFrame("Project DAWN");
-        // frame.setResizable(false);
+        frame = new JFrame("DAWN Engine");
+        //frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
-        // frame.pack();
+        //frame.pack();
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
         frame.setVisible(true);
-        // frame.setLocationRelativeTo(null);
+        //frame.setLocationRelativeTo(null);
     }
 
     public void render() {
@@ -66,6 +75,9 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = image.getGraphics();
 
+        world.render(g);
+        player.render(g);
+
         g.dispose();
         g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
@@ -74,7 +86,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void tick() {
-
+        Camera.followTarget(player);
     }
 
     public boolean isGameRunning() {
@@ -83,15 +95,11 @@ public class Game extends Canvas implements Runnable {
 
     private void load() {
         spritesheet = new Spritesheet("/spritesheets/spritesheet.png");
+        player = new Player(0, 0, World.TILE_SIZE, World.TILE_SIZE, spritesheet.getSprite(2 * World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE));
+        world = new World("/maps/testStage/testStage.png");
     }
 
     private Game() {
-        requestFocus();
-        initFrame();
-        load();
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        Controls controls = new Controls();
-        addKeyListener(controls);
-        addMouseListener(controls);
     }
 }

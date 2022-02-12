@@ -18,6 +18,7 @@ public class Tile {
         this.x = x;
         this.y = y;
         this.sprite = sprite;
+        loadSprites();
     }
 
     public void render(Graphics g) {
@@ -25,7 +26,8 @@ public class Tile {
     }
 
     private void loadSprites() {
-        FLOOR_TILE = Game.getInstance().spritesheet.getSprite(0, 0, World.TILE_SIZE, World.TILE_SIZE);
-        WALL_TILE = Game.getInstance().spritesheet.getSprite(World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE);
+        Game game = Game.getInstance();
+        FLOOR_TILE = game.spritesheet.getSprite(0, 0, World.TILE_SIZE, World.TILE_SIZE);
+        WALL_TILE = game.spritesheet.getSprite(World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE);
     }
 }

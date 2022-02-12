@@ -5,8 +5,8 @@ import com.boss.world.World;
 
 public class Camera {
 
-    public static Integer x;
-    public static Integer y;
+    public static Integer x = 0;
+    public static Integer y = 0;
 
     private static Integer clamp(Integer currentPosition, Integer minPosition, Integer maxPosition) {
         if(currentPosition < minPosition) {

@@ -2,6 +2,7 @@ package com.boss.world;
 
 import com.boss.engine.Camera;
 import com.boss.engine.Game;
+import com.boss.enums.tiles.TileColorMap;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,7 +13,7 @@ public class World {
 
     public static Tile[] tiles;
     public static Integer WIDTH, HEIGHT;
-    public static final Integer TILE_SIZE = 16;
+    public static final Integer TILE_SIZE = 128;
 
     public World(String path) {
         try {
@@ -24,7 +25,15 @@ public class World {
             HEIGHT =  map.getHeight();
             for (int xx = 0; xx < map.getWidth(); xx++) {
                 for(int yy = 0; yy < map.getHeight(); yy++) {
-
+                    Integer color = pixels[ xx + (yy * map.getWidth())];
+                    tiles[xx + (yy * WIDTH)] = new FloorTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.FLOOR_TILE);
+                    if (color.equals(TileColorMap.FLOOR_TILE_COLOR.value)) {
+                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.FLOOR_TILE);
+                    } else if (color.equals(TileColorMap.WALL_TILE_COLOR.value)) {
+                        tiles[xx + (yy * WIDTH)] = new WallTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.WALL_TILE);
+                    } else if (color.equals(TileColorMap.PLAYER_SPAWN.value)) {
+                        Game.getInstance().player.setSpawnPoint(xx * TILE_SIZE, yy * TILE_SIZE);
+                    }
                 }
             }
         } catch (IOException e) {
