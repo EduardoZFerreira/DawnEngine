@@ -21,8 +21,8 @@ public class Game extends Canvas implements Runnable {
 
     public static JFrame frame;
 
-    public static final int WIDTH = 240;
-    public static final int HEIGHT = 160;
+    public static final int WIDTH = 1080;
+    public static final int HEIGHT = 720;
     public static final int SCALE = 3;
 
     public Spritesheet spritesheet;
@@ -47,12 +47,14 @@ public class Game extends Canvas implements Runnable {
     public void initFrame() {
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         frame = new JFrame("Project DAWN");
-        frame.setResizable(false);
+        // frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
-        frame.pack();
+        // frame.pack();
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(true);
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+        // frame.setLocationRelativeTo(null);
     }
 
     public void render() {
