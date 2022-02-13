@@ -50,10 +50,10 @@ public class World {
     }
 
     public static Boolean nextTileIsWallTile(Integer nextXPosition, Integer nextYPosition) {
-        Integer topLeftCornerX = nextXPosition / TILE_SIZE;
+        Integer topLeftCornerX = (int)(nextXPosition + (TILE_SIZE * 0.2)) / TILE_SIZE;
         Integer topLeftCornerY = nextYPosition / TILE_SIZE;
 
-        Integer topLeftCornerXOffset = (nextXPosition + TILE_SIZE) / TILE_SIZE;
+        Integer topLeftCornerXOffset = (int)(nextXPosition + TILE_SIZE - (TILE_SIZE * 0.2)) / TILE_SIZE;
         Integer topLeftCornerYOffset = (nextYPosition + TILE_SIZE) / TILE_SIZE;
 
         return !((tiles[topLeftCornerX + (topLeftCornerY * WIDTH)] instanceof WallTile)
