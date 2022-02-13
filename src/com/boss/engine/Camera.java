@@ -20,7 +20,7 @@ public class Camera {
     }
 
     public static void followTarget(Entity target) {
-        x = clamp(target.x, 0, World.WIDTH * World.TILE_SIZE - Game.WIDTH);
-        y = clamp(target.y, 0, World.HEIGHT * World.TILE_SIZE - Game.HEIGHT);
+        x = clamp(target.x - (Game.WIDTH / 2), 0, World.WIDTH * World.TILE_SIZE - Game.WIDTH);
+        y = clamp(target.y - (Game.HEIGHT / 2), 0, World.HEIGHT * World.TILE_SIZE - Game.HEIGHT);
     }
 }

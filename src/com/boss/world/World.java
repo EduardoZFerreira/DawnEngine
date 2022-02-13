@@ -45,8 +45,8 @@ public class World {
         int startX = Camera.x / TILE_SIZE;
         int startY = Camera.y / TILE_SIZE;
 
-        int finalX = startX + (Game.WIDTH / TILE_SIZE);
-        int finalY = startY + (Game.HEIGHT / TILE_SIZE);
+        int finalX = startX + (Game.WIDTH / TILE_SIZE) + TILE_SIZE;
+        int finalY = startY + (Game.HEIGHT / TILE_SIZE) + TILE_SIZE;
 
         for(int xx = startX; xx <= finalX; xx++) {
             for(int yy = startY; yy <= finalY; yy++) {
