@@ -44,12 +44,12 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run() {
-        requestFocus();
         initFrame();
         load();
         Controls controls = new Controls();
         addKeyListener(controls);
         addMouseListener(controls);
+        requestFocus();
         loop.run();
     }
 
@@ -87,6 +87,7 @@ public class Game extends Canvas implements Runnable {
 
     public void tick() {
         Camera.followTarget(player);
+        player.tick();
     }
 
     public boolean isGameRunning() {
