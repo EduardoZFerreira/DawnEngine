@@ -25,11 +25,9 @@ public class World {
             HEIGHT =  map.getHeight();
             for (int xx = 0; xx < map.getWidth(); xx++) {
                 for(int yy = 0; yy < map.getHeight(); yy++) {
-                    Integer color = pixels[ xx + (yy * map.getWidth())];
+                    Integer color = pixels[xx + (yy * map.getWidth())];
                     tiles[xx + (yy * WIDTH)] = new FloorTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.FLOOR_TILE);
-                    if (color.equals(TileColorMap.FLOOR_TILE_COLOR.value)) {
-                        tiles[xx + (yy * WIDTH)] = new FloorTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.FLOOR_TILE);
-                    } else if (color.equals(TileColorMap.WALL_TILE_COLOR.value)) {
+                    if (color.equals(TileColorMap.WALL_TILE_COLOR.value)) {
                         tiles[xx + (yy * WIDTH)] = new WallTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.WALL_TILE);
                     } else if (color.equals(TileColorMap.PLAYER_SPAWN.value)) {
                         Game.getInstance().player.setSpawnPoint(xx * TILE_SIZE, yy * TILE_SIZE);
@@ -39,6 +37,19 @@ public class World {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Boolean nextTileIsWallTile(Integer nextXPosition, Integer nextYPosition) {
+        Integer topLeftCornerX = nextXPosition / TILE_SIZE;
+        Integer topLeftCornerY = nextYPosition / TILE_SIZE;
+
+        Integer topLeftCornerXOffset = (nextXPosition + TILE_SIZE) / TILE_SIZE;
+        Integer topLeftCornerYOffset = (nextYPosition + TILE_SIZE) / TILE_SIZE;
+
+        return !((tiles[topLeftCornerX + (topLeftCornerY * WIDTH)] instanceof WallTile)
+                || (tiles[topLeftCornerXOffset + (topLeftCornerY * WIDTH)] instanceof WallTile)
+                || (tiles[topLeftCornerX + (topLeftCornerYOffset * WIDTH)] instanceof WallTile)
+                || (tiles[topLeftCornerXOffset + (topLeftCornerYOffset * WIDTH)] instanceof WallTile));
     }
 
     public void render(Graphics g) {

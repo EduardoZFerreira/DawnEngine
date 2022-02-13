@@ -1,9 +1,12 @@
 package com.boss.entities;
 
+import com.boss.engine.Camera;
 import com.boss.enums.entities.SpriteDirection;
 import com.boss.enums.entities.State;
 import com.boss.utils.Utils;
+import com.boss.world.World;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -29,19 +32,18 @@ public class Player extends Entity {
 
     public void tick() {
         move();
-
     }
 
     public void move() {
-        if (moveRight) {
+        if (moveRight && World.nextTileIsWallTile((int)(x + speed), y)) {
             setX(Utils.toInteger(getX() + speed));
-        } else if (moveLeft) {
+        } else if (moveLeft && World.nextTileIsWallTile((int)(x - speed), y)) {
             setX(Utils.toInteger(getX() - speed));
         }
 
-        if (moveDown) {
+        if (moveDown && World.nextTileIsWallTile(x, (int)(y + speed))) {
             setY(Utils.toInteger(getY() + speed));
-        } else if (moveUp) {
+        } else if (moveUp && World.nextTileIsWallTile(x, (int)(y - speed))) {
             setY(Utils.toInteger(getY() - speed));
         }
     }
