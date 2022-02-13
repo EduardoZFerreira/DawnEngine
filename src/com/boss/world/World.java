@@ -2,6 +2,9 @@ package com.boss.world;
 
 import com.boss.engine.Camera;
 import com.boss.engine.Game;
+import com.boss.entities.Entity;
+import com.boss.entities.Item;
+import com.boss.enums.entities.ItemType;
 import com.boss.enums.tiles.TileColorMap;
 
 import javax.imageio.ImageIO;
@@ -18,6 +21,7 @@ public class World {
     public World(String path) {
         try {
             BufferedImage map = ImageIO.read(getClass().getResource(path));
+            Game game = Game.getInstance();
             int[] pixels = new int[map.getWidth() * map.getHeight()];
             tiles = new Tile[pixels.length];
             map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());
@@ -31,6 +35,12 @@ public class World {
                         tiles[xx + (yy * WIDTH)] = new WallTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.WALL_TILE);
                     } else if (color.equals(TileColorMap.PLAYER_SPAWN.value)) {
                         Game.getInstance().player.setSpawnPoint(xx * TILE_SIZE, yy * TILE_SIZE);
+                    } else if(color.equals(TileColorMap.WEAPON_ITEM.value)) {
+                        game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.WEAPON));
+                    } else if(color.equals(TileColorMap.HEALING_ITEM.value)) {
+                        game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.HEALING));
+                    } else if(color.equals(TileColorMap.AMMO_ITEM.value)) {
+                        game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.AMMO));
                     }
                 }
             }

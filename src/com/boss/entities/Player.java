@@ -1,12 +1,10 @@
 package com.boss.entities;
 
-import com.boss.engine.Camera;
 import com.boss.enums.entities.SpriteDirection;
 import com.boss.enums.entities.State;
 import com.boss.utils.Utils;
 import com.boss.world.World;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -19,6 +17,8 @@ public class Player extends Entity {
     private State state = State.IDLE;
 
     private Double speed = 5.00;
+
+    private Inventory inventory;
 
     public Double health = 100.00;
     public Double armor = 0.00;

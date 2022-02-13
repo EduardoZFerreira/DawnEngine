@@ -1,23 +1,23 @@
 package com.boss.engine;
 
+import com.boss.entities.Item;
 import com.boss.entities.Player;
 import com.boss.enums.engine.GameStatus;
 import com.boss.graphics.Spritesheet;
 import com.boss.world.World;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends Canvas implements Runnable {
 
     private static Game single_instance = null;
     private final BufferedImage image;
 
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     protected final Loop loop = new Loop();
     public GameStatus status = GameStatus.STOPPED;
 
@@ -28,8 +28,11 @@ public class Game extends Canvas implements Runnable {
     public static final int SCALE = 1;
 
     public Spritesheet spritesheet;
+    public Spritesheet itemsSpritesheet;
     public Player player;
     public World world;
+
+    public List<Item> items = new ArrayList<>();
 
     public static void main(String[] args) {
         Game game = Game.getInstance();
@@ -78,6 +81,8 @@ public class Game extends Canvas implements Runnable {
         world.render(g);
         player.render(g);
 
+        renderItems(g);
+
         g.dispose();
         g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
@@ -96,8 +101,15 @@ public class Game extends Canvas implements Runnable {
 
     private void load() {
         spritesheet = new Spritesheet("/spritesheets/spritesheet.png");
+        itemsSpritesheet = new Spritesheet("/spritesheets/Items/items.png");
         player = new Player(0, 0, World.TILE_SIZE, World.TILE_SIZE, spritesheet.getSprite(2 * World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE));
         world = new World("/maps/testStage/testStage.png");
+    }
+
+    private void renderItems(Graphics g) {
+        for (Item item : items) {
+            item.render(g);
+        }
     }
 
     private Game() {
