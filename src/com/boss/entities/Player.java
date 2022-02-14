@@ -1,10 +1,14 @@
 package com.boss.entities;
 
+import com.boss.engine.Camera;
+import com.boss.engine.Game;
+import com.boss.enums.entities.AmmoType;
 import com.boss.enums.entities.SpriteDirection;
 import com.boss.enums.entities.State;
 import com.boss.utils.Utils;
 import com.boss.world.World;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
@@ -18,7 +22,7 @@ public class Player extends Entity {
 
     private Double speed = 5.00;
 
-    private Inventory inventory;
+    private Inventory inventory = new Inventory();
 
     public Double health = 100.00;
     public Double armor = 0.00;
@@ -30,8 +34,25 @@ public class Player extends Entity {
         super(x, y, width, height, sprite);
     }
 
+    public void render(Graphics g) {
+        g.drawImage(sprite, (int)getX() - Camera.x, (int)getY() - Camera.y, null);
+
+        Ammo ammo = inventory.ammo.stream()
+                .filter(ammunition -> ammunition.getType().equals(AmmoType.PISTOL))
+                .findAny()
+                .orElse(null);
+
+        if (ammo != null) {
+            g.setColor(Color.WHITE);
+
+            g.setFont(new Font("arial", Font.BOLD, 16));
+            g.drawString("Munição de pistola: " + ammo.getAmmount(), x - Camera.x, y - 10 - Camera.y);
+        }
+    }
+
     public void tick() {
         move();
+        checkItemCollisions();
     }
 
     public void move() {
@@ -81,4 +102,33 @@ public class Player extends Entity {
         this.moveDown = moveDown;
         if (moveDown) this.moveUp = false;
     }
+
+    private void checkItemCollisions() {
+        Double currentCarryWeight = inventory.calculateCurrentCarryWeight();
+        Game game = Game.getInstance();
+        for (Integer i = 0; i < game.items.size(); i++) {
+            Item item = game.items.get(i);
+            if (mask.isCollidingWithItem(this, item) && (currentCarryWeight + item.getType().size) <= inventory.getCarryCapacity()) {
+                pickUp(item);
+                game.items.remove(item);
+            }
+        }
+    }
+
+    private void pickUp(Item item) {
+        switch (item.getType()) {
+            case PISTOL_AMMO:
+                inventory.addAmmo(AmmoType.PISTOL);
+                break;
+            case WEAPON_PISTOL:
+                break;
+            case HEALING:
+                break;
+            case ARMOR:
+                break;
+            default:
+                break;
+        }
+    }
+
 }

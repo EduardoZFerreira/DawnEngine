@@ -1,7 +1,6 @@
 package com.boss.entities;
 
 import com.boss.engine.Camera;
-import com.boss.engine.Game;
 import com.boss.world.World;
 
 import java.awt.*;
@@ -14,7 +13,7 @@ public class Entity {
     public Integer y;
 
     protected BufferedImage sprite;
-    protected Mask mask;
+    protected Mask mask = new Mask(0, 0, World.TILE_SIZE, World.TILE_SIZE);
 
     public Entity(Integer x, Integer y, Integer width, Integer height, BufferedImage sprite) {
         setX(x);
@@ -71,11 +70,5 @@ public class Entity {
 
     public void tick() {
 
-    }
-
-    public Boolean isColliding(Entity e1, Entity e2) {
-        Rectangle e1Mask = new Rectangle(e1.getX() + mask.x, e1.getY() + mask.y, mask.width, mask.height);
-        Rectangle e2Mask = new Rectangle(e2.getX() + mask.x, e2.getY() + mask.y, mask.width, mask.height);
-        return e1Mask.intersects(e2Mask);
     }
 }

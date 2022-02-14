@@ -10,15 +10,12 @@ import java.awt.image.BufferedImage;
 
 public class Item {
 
-    public Integer x;
-    public Integer y;
+    private Integer x;
+    private Integer y;
 
-    public ItemType type;
+    private ItemType type;
 
     public BufferedImage PICK_UP_SPRITE;
-
-    protected Mask mask;
-    protected int width, height;
 
     public Item(Integer x, Integer y, ItemType type) {
         setX(x);
@@ -37,6 +34,10 @@ public class Item {
 
     public Integer getY() {
         return y;
+    }
+
+    public ItemType getType() {
+        return type;
     }
 
     public void setX(Integer x) {

@@ -2,7 +2,6 @@ package com.boss.world;
 
 import com.boss.engine.Camera;
 import com.boss.engine.Game;
-import com.boss.entities.Entity;
 import com.boss.entities.Item;
 import com.boss.enums.entities.ItemType;
 import com.boss.enums.tiles.TileColorMap;
@@ -36,11 +35,11 @@ public class World {
                     } else if (color.equals(TileColorMap.PLAYER_SPAWN.value)) {
                         Game.getInstance().player.setSpawnPoint(xx * TILE_SIZE, yy * TILE_SIZE);
                     } else if(color.equals(TileColorMap.WEAPON_ITEM.value)) {
-                        game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.WEAPON));
+                        game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.WEAPON_PISTOL));
                     } else if(color.equals(TileColorMap.HEALING_ITEM.value)) {
                         game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.HEALING));
                     } else if(color.equals(TileColorMap.AMMO_ITEM.value)) {
-                        game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.AMMO));
+                        game.items.add(new Item(xx * TILE_SIZE, yy * TILE_SIZE, ItemType.PISTOL_AMMO));
                     }
                 }
             }

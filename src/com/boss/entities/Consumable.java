@@ -7,4 +7,8 @@ public class Consumable {
 
     public void use() {
     }
+
+    public ConsumableItemType getType() {
+        return type;
+    }
 }
