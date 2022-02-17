@@ -1,6 +1,6 @@
 package com.boss.engine;
 
-import com.boss.entities.Item;
+import com.boss.items.Item;
 import com.boss.entities.Player;
 import com.boss.enums.engine.GameStatus;
 import com.boss.graphics.Spritesheet;

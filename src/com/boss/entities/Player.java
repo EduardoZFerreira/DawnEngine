@@ -2,9 +2,9 @@ package com.boss.entities;
 
 import com.boss.engine.Camera;
 import com.boss.engine.Game;
-import com.boss.enums.entities.AmmoType;
 import com.boss.enums.entities.SpriteDirection;
 import com.boss.enums.entities.State;
+import com.boss.items.Item;
 import com.boss.utils.Utils;
 import com.boss.world.World;
 
@@ -37,17 +37,17 @@ public class Player extends Entity {
     public void render(Graphics g) {
         g.drawImage(sprite, (int)getX() - Camera.x, (int)getY() - Camera.y, null);
 
-        Ammo ammo = inventory.ammo.stream()
-                .filter(ammunition -> ammunition.getType().equals(AmmoType.PISTOL))
-                .findAny()
-                .orElse(null);
-
-        if (ammo != null) {
-            g.setColor(Color.WHITE);
-
-            g.setFont(new Font("arial", Font.BOLD, 16));
-            g.drawString("Munição de pistola: " + ammo.getAmmount(), x - Camera.x, y - 10 - Camera.y);
-        }
+//        Ammo ammo = inventory.ammo.stream()
+//                .filter(ammunition -> ammunition.getType().equals(AmmoType.PISTOL))
+//                .findAny()
+//                .orElse(null);
+//
+//        if (ammo != null) {
+//            g.setColor(Color.WHITE);
+//
+//            g.setFont(new Font("arial", Font.BOLD, 16));
+//            g.drawString("Munição de pistola: " + ammo.getAmmount(), x - Camera.x, y - 10 - Camera.y);
+//        }
     }
 
     public void tick() {
@@ -116,19 +116,13 @@ public class Player extends Entity {
     }
 
     private void pickUp(Item item) {
-        switch (item.getType()) {
-            case PISTOL_AMMO:
-                inventory.addAmmo(AmmoType.PISTOL);
-                break;
-            case WEAPON_PISTOL:
-                break;
-            case HEALING:
-                break;
-            case ARMOR:
-                break;
-            default:
-                break;
-        }
+//        switch (item.getType()) {
+//            case PISTOL_AMMO:
+//                inventory.addAmmo(AmmoType.PISTOL);
+//                break;
+//            default:
+//                break;
+//        }
     }
 
 }

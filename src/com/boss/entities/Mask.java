@@ -1,5 +1,7 @@
 package com.boss.entities;
 
+import com.boss.items.Item;
+
 import java.awt.*;
 
 public class Mask {
