@@ -104,25 +104,11 @@ public class Player extends Entity {
     }
 
     private void checkItemCollisions() {
-        Double currentCarryWeight = inventory.calculateCurrentCarryWeight();
-        Game game = Game.getInstance();
-        for (Integer i = 0; i < game.items.size(); i++) {
-            Item item = game.items.get(i);
-            if (mask.isCollidingWithItem(this, item) && (currentCarryWeight + item.getType().size) <= inventory.getCarryCapacity()) {
-                pickUp(item);
-                game.items.remove(item);
-            }
-        }
+
     }
 
     private void pickUp(Item item) {
-//        switch (item.getType()) {
-//            case PISTOL_AMMO:
-//                inventory.addAmmo(AmmoType.PISTOL);
-//                break;
-//            default:
-//                break;
-//        }
+
     }
 
 }
