@@ -14,9 +14,7 @@ public class Item {
 
     public BufferedImage PICK_UP_SPRITE;
 
-    public Item(Integer x, Integer y, BufferedImage pickUpSprite, Double weight) {
-        setX(x);
-        setY(y);
+    public Item(BufferedImage pickUpSprite, Double weight) {
         setPickUpSprite(pickUpSprite);
         this.weight = weight;
     }
@@ -29,11 +27,8 @@ public class Item {
         return amount;
     }
 
-    public void setX(Integer x) {
+    public void setPosition(Integer x, Integer y) {
         this.x = x;
-    }
-
-    public void setY(Integer y) {
         this.y = y;
     }
 

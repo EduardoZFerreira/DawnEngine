@@ -7,8 +7,8 @@ public class Wearable extends Item {
     private WearableType wearableType;
     private Double defense;
 
-    public Wearable(Integer x, Integer y, WearableType wearableType, Double defense, Double weight) {
-        super(x, y, wearableType.sprite, weight);
+    public Wearable(WearableType wearableType, Double defense, Double weight) {
+        super(wearableType.sprite, weight);
         this.wearableType = wearableType;
         this.defense = defense;
     }

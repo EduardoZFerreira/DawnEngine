@@ -1,9 +1,9 @@
 package com.boss.engine;
 
-import com.boss.items.Item;
 import com.boss.entities.Player;
 import com.boss.enums.engine.GameStatus;
 import com.boss.graphics.Spritesheet;
+import com.boss.items.Item;
 import com.boss.world.World;
 
 import javax.swing.*;
@@ -28,7 +28,6 @@ public class Game extends Canvas implements Runnable {
     public static final int SCALE = 1;
 
     public Spritesheet spritesheet;
-    public Spritesheet itemsSpritesheet;
     public Player player;
     public World world;
 
@@ -79,9 +78,9 @@ public class Game extends Canvas implements Runnable {
         Graphics g = image.getGraphics();
 
         world.render(g);
-        player.render(g);
-
         renderItems(g);
+
+        player.render(g);
 
         g.dispose();
         g = bs.getDrawGraphics();
@@ -101,7 +100,6 @@ public class Game extends Canvas implements Runnable {
 
     private void load() {
         spritesheet = new Spritesheet("/spritesheets/spritesheet.png");
-        itemsSpritesheet = new Spritesheet("/spritesheets/Items/items.png");
         player = new Player(0, 0, World.TILE_SIZE, World.TILE_SIZE, spritesheet.getSprite(2 * World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE));
         world = new World("/maps/testStage/testStage.png");
     }

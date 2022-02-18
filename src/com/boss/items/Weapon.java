@@ -13,8 +13,8 @@ public class Weapon extends Item {
     private Integer ammoCapacity;
     private Double durability;
 
-    public Weapon(Integer x, Integer y, WeaponType weaponType, AmmoType ammoType, Double damage, Double range, Integer ammoCapacity, Double durability, Double weight) {
-        super(x, y, weaponType.sprite, weight);
+    public Weapon(WeaponType weaponType, AmmoType ammoType, Double damage, Double range, Integer ammoCapacity, Double durability, Double weight) {
+        super(weaponType.sprite, weight);
         this.weaponType = weaponType;
         this.damage = damage;
         this.range = range;

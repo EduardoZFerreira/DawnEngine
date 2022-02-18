@@ -7,8 +7,8 @@ public class Consumable extends Item {
     private ConsumableType consumableType;
     private Double regenAmount;
 
-    public Consumable(Integer x, Integer y, ConsumableType consumableType, Double regenAmount, Double weight) {
-        super(x, y, consumableType.sprite, weight);
+    public Consumable(ConsumableType consumableType, Double regenAmount, Double weight) {
+        super(consumableType.sprite, weight);
         this.consumableType = consumableType;
         this.regenAmount = regenAmount;
     }
