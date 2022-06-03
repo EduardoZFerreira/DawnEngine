@@ -18,7 +18,6 @@ public class World {
     public World(String path) {
         try {
             BufferedImage map = ImageIO.read(getClass().getResource(path));
-            Game game = Game.getInstance();
             int[] pixels = new int[map.getWidth() * map.getHeight()];
             tiles = new Tile[pixels.length];
             map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());

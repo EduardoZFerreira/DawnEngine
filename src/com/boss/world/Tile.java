@@ -27,7 +27,7 @@ public class Tile {
 
     private void loadSprites() {
         Game game = Game.getInstance();
-        FLOOR_TILE = game.spritesheet.getSprite(0, 0, World.TILE_SIZE, World.TILE_SIZE);
-        WALL_TILE = game.spritesheet.getSprite(World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE);
+        FLOOR_TILE = game.level.tilesSpriteSheet.getSprite(0, 0, World.TILE_SIZE, World.TILE_SIZE);
+        WALL_TILE = game.level.tilesSpriteSheet.getSprite(World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE);
     }
 }

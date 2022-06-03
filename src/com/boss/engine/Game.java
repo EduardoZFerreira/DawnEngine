@@ -4,6 +4,7 @@ import com.boss.entities.Player;
 import com.boss.enums.engine.GameStatus;
 import com.boss.graphics.Spritesheet;
 import com.boss.items.Item;
+import com.boss.levels.Level;
 import com.boss.world.World;
 
 import javax.swing.*;
@@ -29,9 +30,10 @@ public class Game extends Canvas implements Runnable {
 
     public Spritesheet spritesheet;
     public Player player;
-    public World world;
 
     public List<Item> items = new ArrayList<>();
+
+    public Level level;
 
     public static void main(String[] args) {
         Game game = Game.getInstance();
@@ -48,6 +50,7 @@ public class Game extends Canvas implements Runnable {
     public void run() {
         initFrame();
         load();
+        loadLevel();
         Controls controls = new Controls();
         addKeyListener(controls);
         addMouseListener(controls);
@@ -77,7 +80,7 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = image.getGraphics();
 
-        world.render(g);
+        level.world.render(g);
         renderItems(g);
 
         player.render(g);
@@ -101,7 +104,12 @@ public class Game extends Canvas implements Runnable {
     private void load() {
         spritesheet = new Spritesheet("/spritesheets/spritesheet.png");
         player = new Player(0, 0, World.TILE_SIZE, World.TILE_SIZE, spritesheet.getSprite(2 * World.TILE_SIZE, 0, World.TILE_SIZE, World.TILE_SIZE));
-        world = new World("/maps/testStage/testStage.png");
+    }
+
+    private void loadLevel() {
+        // TODO: Create level data and repository
+        level = new Level("/maps/Chapter_1/level_1.png", "/spritesheets/Levels/Chapter_1/level_1.png", "Outer area");
+        level.load();
     }
 
     private void renderItems(Graphics g) {
