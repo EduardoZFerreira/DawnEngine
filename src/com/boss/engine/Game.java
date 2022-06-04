@@ -107,8 +107,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void loadLevel() {
-        // TODO: Create level data and repository
-        level = new Level("/maps/Chapter_1/level_1.png", "/spritesheets/Levels/Chapter_1/level_1.png", "Outer area");
+        level = new Level(1, 1, "Outer Area");
         level.load();
     }
 

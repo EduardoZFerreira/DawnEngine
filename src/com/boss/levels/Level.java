@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Level {
 
-    public String mapPath;
-    public String tilesSpriteSheetPath;
+    public Integer chapterNumber;
+    public Integer levelNumber;
 
     public String areaName;
 
@@ -18,14 +18,14 @@ public class Level {
     public Spritesheet tilesSpriteSheet;
     public List<Item> items = new ArrayList<>();
 
-    public Level(String mapPath, String tilesSpriteSheetPath, String areaName) {
-        this.mapPath = mapPath;
-        this.tilesSpriteSheetPath = tilesSpriteSheetPath;
+    public Level(Integer chapterNumber, Integer levelNumber, String areaName) {
+        this.chapterNumber = chapterNumber;
+        this.levelNumber = levelNumber;
         this.areaName = areaName;
     }
 
     public void load() {
-        tilesSpriteSheet = new Spritesheet(tilesSpriteSheetPath);
-        world = new World(mapPath);
+        tilesSpriteSheet = new Spritesheet("/spritesheets/Levels/Chapter_" + chapterNumber + "/level_" + levelNumber + ".png");
+        world = new World("/maps/Chapter_" + chapterNumber + "/level_" + levelNumber + ".png");
     }
 }
