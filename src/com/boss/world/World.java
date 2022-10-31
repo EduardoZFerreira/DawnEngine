@@ -3,15 +3,21 @@ package com.boss.world;
 import com.boss.engine.Camera;
 import com.boss.engine.Game;
 import com.boss.enums.tiles.TileColorMap;
+import com.boss.enums.tiles.TriggerAction;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class World {
 
-    public static Tile[] tiles;
+    public static Tile[] tiles; // TODO: Remove static
+
+    public List<Trigger> triggers = new ArrayList<>();
+
     public static Integer WIDTH, HEIGHT;
     public static final Integer TILE_SIZE = 128;
 
@@ -31,6 +37,10 @@ public class World {
                         tiles[xx + (yy * WIDTH)] = new WallTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.WALL_TILE);
                     } else if (color.equals(TileColorMap.PLAYER_SPAWN.value)) {
                         Game.getInstance().player.setSpawnPoint(xx * TILE_SIZE, yy * TILE_SIZE);
+                    } else if (TriggerAction.contains(color)) {
+                        Trigger trigger = new Trigger(xx * TILE_SIZE, yy * TILE_SIZE, Tile.FLOOR_TILE, TriggerAction.convert(color));
+                        triggers.add(trigger);
+                        tiles[xx + (yy * WIDTH)] = trigger;
                     }
                 }
             }
